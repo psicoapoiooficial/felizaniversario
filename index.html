@@ -14,19 +14,18 @@
         }
 
         body {
-            /* Fundo escuro e romântico */
             background: radial-gradient(circle at center, #1f0f15 0%, #0a0508 100%);
             color: #f7e1d7;
-            font-family: 'Georgia', serif; /* Fonte mais romântica e clássica */
+            font-family: 'Georgia', serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
-            perspective: 1800px;
+            /* Perspectiva ajustada para mobile */
+            perspective: 2000px;
         }
 
-        /* Efeito de estrelas/poeira brilhante ao fundo */
         .stars {
             position: absolute;
             width: 100%;
@@ -34,25 +33,26 @@
             pointer-events: none;
             background-image: 
                 radial-gradient(1px 1px at 20px 30px, #e0a96d, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 160px, #e0a96d, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 130px 80px, #e0a96d, rgba(0,0,0,0));
+                radial-gradient(1px 1px at 100px 150px, #fff, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 200px 200px;
             opacity: 0.3;
         }
 
-        /* Container do Livro */
+        /* Container do Livro - Ajustado para não cortar no mobile */
         .book-container {
-            width: 85vw;
-            max-width: 340px;
-            height: 70vh;
-            max-height: 500px;
+            width: 280px; /* Largura fixa menor para garantir que caiba ao virar */
+            height: 450px;
             position: relative;
             transform-style: preserve-3d;
-            box-shadow: 0 0 30px rgba(224, 169, 109, 0.1);
-            border-radius: 12px;
+            transition: transform 0.5s;
+            /* Move o livro um pouco para a direita para compensar a virada de página */
+            transform: translateX(0px); 
+        }
+
+        /* Classe para centralizar o livro quando aberto (opcional via JS se quiser refinamento) */
+        .book-open-mobile {
+            transform: translateX(20%); 
         }
 
         .page {
@@ -67,7 +67,6 @@
             cursor: pointer;
         }
 
-        /* Faces das páginas */
         .front, .back {
             position: absolute;
             width: 100%;
@@ -76,11 +75,11 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 1.8rem;
-            
-            /* Textura e cor da página (Dark Mode) */
+            padding: 1.5rem;
             background: linear-gradient(135deg, #231920 0%, #151013 100%);
             border: 1px solid rgba(224, 169, 109, 0.2);
+            /* Evita que o texto encoste nas bordas */
+            overflow: hidden;
         }
 
         .front {
@@ -100,23 +99,23 @@
             transform: rotateY(-180deg);
         }
 
-        /* Estilos de Texto */
+        /* Estilos de Texto Otimizados para Telas Pequenas */
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             text-align: center;
-            color: #e0a96d; /* Ouro Rosa / Dourado Romântico */
-            font-weight: normal;
-            margin-bottom: 1rem;
+            color: #e0a96d;
+            margin-bottom: 0.8rem;
             text-shadow: 0 2px 10px rgba(224, 169, 109, 0.3);
             font-style: italic;
         }
 
         p {
-            font-size: 1.05rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.4;
             text-align: center;
             color: #e8d5cc;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            word-wrap: break-word;
         }
 
         .heart {
@@ -124,21 +123,20 @@
             font-size: 2rem;
             text-align: center;
             animation: pulse 2s infinite;
-            text-shadow: 0 0 15px rgba(168, 50, 70, 0.5);
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .hint {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: rgba(224, 169, 109, 0.5);
             letter-spacing: 1px;
-            font-family: sans-serif;
             text-transform: uppercase;
             animation: fade 2s infinite;
+            white-space: nowrap;
         }
 
         @keyframes pulse {
@@ -152,7 +150,7 @@
             50% { opacity: 1; }
         }
 
-        /* Z-indexes (da primeira página para a última) */
+        /* Controle de Z-index */
         #page1 { z-index: 6; }
         #page2 { z-index: 5; }
         #page3 { z-index: 4; }
@@ -160,14 +158,23 @@
         #page5 { z-index: 2; }
         #page6 { z-index: 1; }
 
+        /* Media Query para celulares muito pequenos */
+        @media (max-width: 360px) {
+            .book-container {
+                width: 240px;
+                height: 400px;
+            }
+            p { font-size: 0.85rem; }
+        }
     </style>
 </head>
 <body>
 
     <div class="stars"></div>
 
-    <div class="book-container">
+    <div class="book-container" id="book">
         
+        <!-- Página 1 -->
         <div class="page" id="page1">
             <div class="front" style="background: linear-gradient(135deg, #1f0f15 0%, #0a0508 100%);">
                 <h1>Para a minha Princesa</h1>
@@ -179,26 +186,29 @@
             </div>
         </div>
 
+        <!-- Página 2 -->
         <div class="page" id="page2">
             <div class="front">
                 <p>Hoje vc não faz apenas 21 anos, hoje você completa mais um ciclo de vida, que essa data possa ser um recomeço pra uma nova vida, uma nova fase...</p>
                 <span class="hint">Toque para avançar</span>
             </div>
             <div class="back">
-                <p>...que venha muita paz para o seu coração, saúde, e muitos momentos felizes na sua vida, que vc consiga concretizar todos aqueles projetos e sonhos que vc tem em mente, e que vc tanto almeja alcançar.</p>
+                <p>...que venha muita paz para o seu coração, saúde, e muitos momentos felizes na sua vida, que vc consiga concretizar todos aqueles projetos e sonhos que vc tem em mente.</p>
             </div>
         </div>
 
+        <!-- Página 3 -->
         <div class="page" id="page3">
             <div class="front">
                 <p>Quero que saiba que torço muito por você, e que sempre estarei aqui te apoiando em todos os seus momentos sejam eles bons e ruins.</p>
                 <span class="hint">Toque para avançar</span>
             </div>
             <div class="back">
-                <p>Tenho muito orgulho da mulher que você está se tornando, da pessoa incrível que você é, saiba que te amo muito, amo cada detalhe seu, seus olhos, sorriso, seu cabelo, seu jeito de ser, te amo por inteira.</p>
+                <p>Tenho muito orgulho da mulher que você está se tornando, da pessoa incrível que você é, saiba que te amo muito, amo cada detalhe seu, te amo por inteira.</p>
             </div>
         </div>
 
+        <!-- Página 4 -->
         <div class="page" id="page4">
             <div class="front">
                 <p>Hoje você faz 21 anos, e são 21 anos de muitos momentos que vc passou, momentos esses, que te fizeram evoluir pra se tornar a mulher que vc é hoje...</p>
@@ -209,21 +219,22 @@
             </div>
         </div>
 
+        <!-- Página 5 -->
         <div class="page" id="page5">
             <div class="front">
                 <p>Saiba que pra mim você será a melhor nutricionista que já existiu, e estarei muito orgulhoso de vc no dia da sua formatura.</p>
-                <p>Saiba que Deus tem bons planos na sua vida...</p>
                 <span class="hint">Toque para avançar</span>
             </div>
             <div class="back">
-                <p>...que ele continue te dando muita força e coragem pra enfrentar todas as dificuldades da vida, até por que minha garota, esse mundo é pequeno para o que Deus tem preparado pra você.</p>
+                <p>Que Deus continue te dando muita força e coragem pra enfrentar todas as dificuldades da vida, esse mundo é pequeno para o que Ele tem preparado pra você.</p>
             </div>
         </div>
 
+        <!-- Página 6 -->
         <div class="page" id="page6">
             <div class="front">
-                <p style="font-size: 1.15rem; font-style: italic; color: #e0a96d;">
-                    "Te amo fielmente minha garota, você é rara, única e especial em meu coração."
+                <p style="font-size: 1rem; font-style: italic; color: #e0a96d;">
+                    "Você é rara, única e especial em meu coração."
                 </p>
                 <h1>Feliz aniversário minha princesa!</h1>
                 <div class="heart">❤️</div>
@@ -238,24 +249,29 @@
 
     <script>
         const pages = document.querySelectorAll('.page');
+        const book = document.getElementById('book');
         const totalPages = pages.length;
 
         pages.forEach((page, index) => {
-            page.addEventListener('click', () => {
-                // Se a página já está virada (lado esquerdo)
+            page.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
                 if (page.classList.contains('flipped')) {
                     page.classList.remove('flipped');
-                    // Ajusta o z-index no meio da animação para não sobrepor errado
                     setTimeout(() => {
                         page.style.zIndex = totalPages - index;
                     }, 600);
-                } 
-                // Se a página não está virada (lado direito)
-                else {
+                } else {
                     page.classList.add('flipped');
                     setTimeout(() => {
                         page.style.zIndex = index + 1;
                     }, 600);
+                }
+
+                // Ajuste dinâmico para centralizar no mobile quando aberto
+                const anyFlipped = document.querySelectorAll('.page.flipped').length > 0;
+                if (window.innerWidth < 600) {
+                    book.style.transform = anyFlipped ? "translateX(25%)" : "translateX(0px)";
                 }
             });
         });
