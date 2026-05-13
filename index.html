@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Feliz Aniversário, Princesa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Feliz Aniversário 21 Anos, Gabriely Almeida</title>
     <style>
         /* Reset e Base */
         * {
@@ -13,46 +13,116 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
         body {
+            /* Fundo escuro e romântico */
             background: radial-gradient(circle at center, #1f0f15 0%, #0a0508 100%);
             color: #f7e1d7;
-            font-family: 'Georgia', serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            /* Perspectiva ajustada para mobile */
-            perspective: 2000px;
+            perspective: 1800px;
+            touch-action: manipulation;
+            -webkit-overflow-scrolling: touch;
         }
 
+        /* Efeito de estrelas/poeira brilhante ao fundo */
         .stars {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background-image: 
-                radial-gradient(1px 1px at 20px 30px, #e0a96d, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 100px 150px, #fff, rgba(0,0,0,0));
+            z-index: 0;
+            background-image:
+                radial-gradient(1px 1px at 10% 15%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 25% 25%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 40% 10%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 55% 30%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 70% 20%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 85% 35%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 15% 50%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 35% 60%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 60% 55%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 80% 65%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 20% 75%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 50% 80%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 75% 85%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 90% 75%, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 30% 90%, #e0a96d, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 65% 92%, #fff, rgba(0, 0, 0, 0));
             background-repeat: repeat;
-            background-size: 200px 200px;
-            opacity: 0.3;
+            background-size: 180px 180px;
+            opacity: 0.4;
+            animation: twinkleStars 4s ease-in-out infinite;
         }
 
-        /* Container do Livro - Ajustado para não cortar no mobile */
+        @keyframes twinkleStars {
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+            50% {
+                opacity: 0.55;
+            }
+        }
+
+        /* Corações flutuantes */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: floatUpHeart var(--duration) linear infinite;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+        @keyframes floatUpHeart {
+            0% {
+                transform: translateY(105vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.5;
+            }
+            40% {
+                opacity: 0.2;
+            }
+            70% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-5vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Container do Livro */
         .book-container {
-            width: 280px; /* Largura fixa menor para garantir que caiba ao virar */
-            height: 450px;
+            width: 88vw;
+            max-width: 360px;
+            height: 65vh;
+            max-height: 520px;
+            min-height: 380px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.5s;
-            /* Move o livro um pouco para a direita para compensar a virada de página */
-            transform: translateX(0px); 
-        }
-
-        /* Classe para centralizar o livro quando aberto (opcional via JS se quiser refinamento) */
-        .book-open-mobile {
-            transform: translateX(20%); 
+            box-shadow: 0 0 40px rgba(224, 169, 109, 0.15);
+            border-radius: 10px;
+            z-index: 10;
+            margin: 0 auto;
         }
 
         .page {
@@ -63,67 +133,118 @@
             left: 0;
             transform-origin: left center;
             transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
             cursor: pointer;
+            will-change: transform;
         }
 
-        .front, .back {
+        /* Faces das páginas */
+        .front,
+        .back {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #231920 0%, #151013 100%);
-            border: 1px solid rgba(224, 169, 109, 0.2);
-            /* Evita que o texto encoste nas bordas */
-            overflow: hidden;
+            align-items: center;
+            padding: 1.2rem;
+            /* Textura e cor da página (Dark Mode) */
+            background: linear-gradient(160deg, #231920 0%, #1a1217 40%, #151013 100%);
+            border: 1px solid rgba(224, 169, 109, 0.15);
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         .front {
             border-radius: 0 12px 12px 0;
-            border-left: 2px solid rgba(224, 169, 109, 0.4);
-            box-shadow: inset 5px 0 15px rgba(0,0,0,0.5);
+            border-left: 3px solid rgba(224, 169, 109, 0.35);
+            box-shadow: inset 8px 0 20px rgba(0, 0, 0, 0.4);
         }
 
         .back {
             transform: rotateY(180deg);
             border-radius: 12px 0 0 12px;
-            border-right: 2px solid rgba(224, 169, 109, 0.4);
-            box-shadow: inset -5px 0 15px rgba(0,0,0,0.5);
+            border-right: 3px solid rgba(224, 169, 109, 0.35);
+            box-shadow: inset -8px 0 20px rgba(0, 0, 0, 0.4);
         }
 
         .page.flipped {
             transform: rotateY(-180deg);
         }
 
-        /* Estilos de Texto Otimizados para Telas Pequenas */
+        /* Estilos de Texto */
         h1 {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 3.5vw, 1.5rem);
             text-align: center;
             color: #e0a96d;
+            font-weight: normal;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 12px rgba(224, 169, 109, 0.35);
+            font-style: italic;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            text-align: center;
+            color: #e0a96d;
+            font-weight: normal;
             margin-bottom: 0.8rem;
             text-shadow: 0 2px 10px rgba(224, 169, 109, 0.3);
             font-style: italic;
         }
 
         p {
-            font-size: 0.95rem;
-            line-height: 1.4;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            line-height: 1.55;
             text-align: center;
             color: #e8d5cc;
-            margin-bottom: 0.8rem;
-            word-wrap: break-word;
+            margin-bottom: 0.7rem;
+            letter-spacing: 0.3px;
+        }
+
+        .highlight {
+            color: #e0a96d;
+            font-weight: bold;
+            font-style: italic;
         }
 
         .heart {
-            color: #a83246;
-            font-size: 2rem;
+            color: #c9485b;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             text-align: center;
             animation: pulse 2s infinite;
-            margin-top: 0.5rem;
+            text-shadow: 0 0 20px rgba(201, 72, 91, 0.5);
+            margin-top: 0.8rem;
+            display: block;
+        }
+
+        .heart-big {
+            font-size: clamp(2.5rem, 7vw, 3.5rem);
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #e0a96d;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            border-top: 1px solid rgba(224, 169, 109, 0.25);
+            padding-top: 0.8rem;
+            width: 100%;
+        }
+
+        .name-highlight {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #e0a96d;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(224, 169, 109, 0.4);
         }
 
         .hint {
@@ -131,40 +252,124 @@
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: rgba(224, 169, 109, 0.5);
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-family: 'Georgia', serif;
             text-transform: uppercase;
-            animation: fade 2s infinite;
+            animation: fadeHint 2.5s infinite;
             white-space: nowrap;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 12px;
+            right: 18px;
+            font-size: 0.6rem;
+            color: rgba(224, 169, 109, 0.35);
+            font-style: italic;
+            pointer-events: none;
+        }
+
+        /* Scrollbar personalizada */
+        .front::-webkit-scrollbar,
+        .back::-webkit-scrollbar {
+            width: 3px;
+        }
+        .front::-webkit-scrollbar-track,
+        .back::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .front::-webkit-scrollbar-thumb,
+        .back::-webkit-scrollbar-thumb {
+            background: rgba(224, 169, 109, 0.3);
+            border-radius: 10px;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fade {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* Controle de Z-index */
-        #page1 { z-index: 6; }
-        #page2 { z-index: 5; }
-        #page3 { z-index: 4; }
-        #page4 { z-index: 3; }
-        #page5 { z-index: 2; }
-        #page6 { z-index: 1; }
-
-        /* Media Query para celulares muito pequenos */
-        @media (max-width: 360px) {
-            .book-container {
-                width: 240px;
-                height: 400px;
+            0% {
+                transform: scale(1);
             }
-            p { font-size: 0.85rem; }
+            50% {
+                transform: scale(1.12);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeHint {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        /* Z-indexes (da primeira página para a última) */
+        #page1 {
+            z-index: 6;
+        }
+        #page2 {
+            z-index: 5;
+        }
+        #page3 {
+            z-index: 4;
+        }
+        #page4 {
+            z-index: 3;
+        }
+        #page5 {
+            z-index: 2;
+        }
+        #page6 {
+            z-index: 1;
+        }
+
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 320px) {
+            .book-container {
+                width: 92vw;
+                height: 60vh;
+                min-height: 340px;
+                max-height: 440px;
+            }
+            .front,
+            .back {
+                padding: 0.9rem;
+            }
+            p {
+                font-size: 0.78rem;
+                line-height: 1.4;
+                margin-bottom: 0.5rem;
+            }
+            h1 {
+                font-size: 1.1rem;
+            }
+            .hint {
+                font-size: 0.6rem;
+                bottom: 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .book-container {
+                width: 380px;
+                height: 530px;
+                min-height: 500px;
+            }
+            .front,
+            .back {
+                padding: 1.8rem;
+            }
+            p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
         }
     </style>
 </head>
@@ -172,109 +377,210 @@
 
     <div class="stars"></div>
 
-    <div class="book-container" id="book">
-        
-        <!-- Página 1 -->
+    <!-- Corações flutuantes -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="book-container">
+
+        <!-- Página 1 - Capa -->
         <div class="page" id="page1">
-            <div class="front" style="background: linear-gradient(135deg, #1f0f15 0%, #0a0508 100%);">
-                <h1>Para a minha Princesa</h1>
-                <div class="heart" style="font-size: 3rem;">❤️</div>
-                <span class="hint">Toque para abrir</span>
+            <div class="front" style="background: linear-gradient(160deg, #1f0f15 0%, #150a10 50%, #0a0508 100%); justify-content: center;">
+                <h1>Para a Minha<br>Princesa</h1>
+                <div class="heart heart-big">💖</div>
+                <p class="name-highlight">Gabriely Almeida</p>
+                <span class="hint">Toque para abrir ✨</span>
             </div>
             <div class="back">
-                <p>Bom vida, não sou muito bom com palavras mas gostaria de te dá os parabéns por essa data especial, que essa data possa se repetir por muitos e muitos anos.</p>
+                <p>Bom vida, não sou muito bom com palavras mas gostaria de te dar os parabéns por essa data especial.</p>
+                <p>Que essa data possa se repetir por <span class="highlight">muitos e muitos anos</span>.</p>
+                <span class="page-number">1</span>
             </div>
         </div>
 
         <!-- Página 2 -->
         <div class="page" id="page2">
             <div class="front">
-                <p>Hoje vc não faz apenas 21 anos, hoje você completa mais um ciclo de vida, que essa data possa ser um recomeço pra uma nova vida, uma nova fase...</p>
+                <h2>🌟 Novo Ciclo 🌟</h2>
+                <p>Hoje você não faz apenas <span class="highlight">21 anos</span>, hoje você completa mais um ciclo de vida.</p>
+                <p>Que essa data possa ser um <span class="highlight">recomeço para uma nova vida</span>, uma nova fase.</p>
                 <span class="hint">Toque para avançar</span>
+                <span class="page-number">2</span>
             </div>
             <div class="back">
-                <p>...que venha muita paz para o seu coração, saúde, e muitos momentos felizes na sua vida, que vc consiga concretizar todos aqueles projetos e sonhos que vc tem em mente.</p>
+                <p>Que venha <span class="highlight">muita paz</span> para o seu coração, saúde, e muitos momentos felizes na sua vida.</p>
+                <p>Que você consiga concretizar todos aqueles projetos e sonhos que você tem em mente, e que você tanto almeja alcançar.</p>
+                <span class="page-number">3</span>
             </div>
         </div>
 
         <!-- Página 3 -->
         <div class="page" id="page3">
             <div class="front">
-                <p>Quero que saiba que torço muito por você, e que sempre estarei aqui te apoiando em todos os seus momentos sejam eles bons e ruins.</p>
+                <h2>💫 Estou Aqui 💫</h2>
+                <p>Quero que saiba que <span class="highlight">torço muito por você</span>, e que sempre estarei aqui te apoiando em todos os seus momentos, sejam eles bons e ruins.</p>
                 <span class="hint">Toque para avançar</span>
+                <span class="page-number">4</span>
             </div>
             <div class="back">
-                <p>Tenho muito orgulho da mulher que você está se tornando, da pessoa incrível que você é, saiba que te amo muito, amo cada detalhe seu, te amo por inteira.</p>
+                <p>Tenho <span class="highlight">muito orgulho</span> da mulher que você está se tornando, da pessoa incrível que você é.</p>
+                <p>Saiba que <span class="highlight">te amo muito</span>, amo cada detalhe seu: seus olhos, sorriso, seu cabelo, seu jeito de ser... <span class="highlight">te amo por inteira</span>.</p>
+                <span class="page-number">5</span>
             </div>
         </div>
 
         <!-- Página 4 -->
         <div class="page" id="page4">
             <div class="front">
-                <p>Hoje você faz 21 anos, e são 21 anos de muitos momentos que vc passou, momentos esses, que te fizeram evoluir pra se tornar a mulher que vc é hoje...</p>
+                <h2>🕊️ Planos de Deus 🕊️</h2>
+                <p>Hoje você faz 21 anos, e são 21 anos de muitos momentos que você passou, momentos esses que te fizeram evoluir para se tornar a mulher que você é hoje.</p>
                 <span class="hint">Toque para avançar</span>
+                <span class="page-number">6</span>
             </div>
             <div class="back">
-                <p>...acredito fielmente que Deus tem bons planos para a sua vida a parti de hoje, e te desejo todas as boas energias possíveis na sua vida.</p>
+                <p>Acredito fielmente que <span class="highlight">Deus tem bons planos para a sua vida</span> a partir de hoje, e te desejo todas as boas energias possíveis na sua vida.</p>
+                <span class="page-number">7</span>
             </div>
         </div>
 
         <!-- Página 5 -->
         <div class="page" id="page5">
             <div class="front">
-                <p>Saiba que pra mim você será a melhor nutricionista que já existiu, e estarei muito orgulhoso de vc no dia da sua formatura.</p>
+                <h2>👩‍🎓 Futuro Brilhante 👩‍🎓</h2>
+                <p>Saiba que pra mim você será a <span class="highlight">melhor nutricionista que já existiu</span>, e estarei muito orgulhoso de você no dia da sua formatura.</p>
                 <span class="hint">Toque para avançar</span>
+                <span class="page-number">8</span>
             </div>
             <div class="back">
-                <p>Que Deus continue te dando muita força e coragem pra enfrentar todas as dificuldades da vida, esse mundo é pequeno para o que Ele tem preparado pra você.</p>
+                <p>Saiba que Deus tem bons planos na sua vida, que Ele continue te dando <span class="highlight">muita força e coragem</span> pra enfrentar todas as dificuldades da vida.</p>
+                <p>Até porque, minha garota, <span class="highlight">esse mundo é pequeno para o que Deus tem preparado pra você</span>.</p>
+                <span class="page-number">9</span>
             </div>
         </div>
 
-        <!-- Página 6 -->
+        <!-- Página 6 - Final -->
         <div class="page" id="page6">
             <div class="front">
-                <p style="font-size: 1rem; font-style: italic; color: #e0a96d;">
-                    "Você é rara, única e especial em meu coração."
+                <p style="font-size: clamp(0.95rem, 2.8vw, 1.1rem); font-style: italic; color: #e0a96d; line-height: 1.5;">
+                    "Te amo fielmente minha garota, você é <span class="highlight">rara</span>, <span class="highlight">única</span> e <span class="highlight">especial</span> em meu coração."
                 </p>
-                <h1>Feliz aniversário minha princesa!</h1>
-                <div class="heart">❤️</div>
+                <h1>Feliz Aniversário,<br>Minha Princesa!</h1>
+                <div class="heart">💝</div>
+                <div class="signature">
+                    Com todo o meu amor,<br>
+                    <span class="name-highlight">Gabriely Almeida</span> 💫
+                </div>
                 <span class="hint">Toque à esquerda para voltar</span>
+                <span class="page-number">10</span>
             </div>
-            <div class="back" style="background: linear-gradient(135deg, #1f0f15 0%, #0a0508 100%); align-items: center;">
-                <p style="font-size: 0.8rem; color: #555;">Com todo o meu amor.</p>
+            <div class="back" style="background: linear-gradient(160deg, #1f0f15 0%, #150a10 50%, #0a0508 100%); justify-content: center; align-items: center;">
+                <div class="heart heart-big">💕</div>
+                <p style="font-size: 0.75rem; color: rgba(224, 169, 109, 0.5); margin-top: 0.5rem;">Fim</p>
             </div>
         </div>
 
     </div>
 
     <script>
+        // ==================== CORAÇÕES FLUTUANTES ====================
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '❤️', '🩷', '💓', '✨', '🕊️'];
+
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 90 + '%';
+                heart.style.setProperty('--duration', (Math.random() * 10 + 10) + 's');
+                heart.style.setProperty('--delay', Math.random() * 8 + 's');
+                heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+                container.appendChild(heart);
+            }
+        }
+
+        // ==================== LÓGICA DAS PÁGINAS ====================
         const pages = document.querySelectorAll('.page');
-        const book = document.getElementById('book');
         const totalPages = pages.length;
 
         pages.forEach((page, index) => {
             page.addEventListener('click', (e) => {
-                e.stopPropagation();
-                
+                // Previne comportamento padrão
+                e.preventDefault();
+
+                // Se a página já está virada (lado esquerdo visível)
                 if (page.classList.contains('flipped')) {
+                    // Desvira a página
                     page.classList.remove('flipped');
+                    // Restaura z-index original após a animação
                     setTimeout(() => {
                         page.style.zIndex = totalPages - index;
-                    }, 600);
-                } else {
-                    page.classList.add('flipped');
-                    setTimeout(() => {
-                        page.style.zIndex = index + 1;
-                    }, 600);
+                    }, 500);
                 }
-
-                // Ajuste dinâmico para centralizar no mobile quando aberto
-                const anyFlipped = document.querySelectorAll('.page.flipped').length > 0;
-                if (window.innerWidth < 600) {
-                    book.style.transform = anyFlipped ? "translateX(25%)" : "translateX(0px)";
+                // Se a página não está virada (lado direito visível)
+                else {
+                    // Vira a página
+                    page.classList.add('flipped');
+                    // Aumenta z-index para sobrepor corretamente
+                    setTimeout(() => {
+                        page.style.zIndex = index + 10;
+                    }, 500);
                 }
             });
+
+            // Previne scroll indesejado no mobile
+            page.addEventListener('touchmove', function(e) {
+                // Permite scroll apenas dentro da página
+                const target = e.target.closest('.front, .back');
+                if (target && target.scrollHeight > target.clientHeight) {
+                    e.stopPropagation();
+                }
+            }, { passive: false });
         });
+
+        // ==================== INICIALIZAÇÃO ====================
+        function init() {
+            createFloatingHearts();
+
+            // Pequeno efeito de entrada
+            const bookContainer = document.querySelector('.book-container');
+            if (bookContainer) {
+                bookContainer.style.transition = 'transform 0.6s ease';
+                bookContainer.style.transform = 'rotateY(-5deg)';
+                setTimeout(() => {
+                    bookContainer.style.transform = 'rotateY(0deg)';
+                }, 400);
+            }
+        }
+
+        // Inicializa quando o DOM estiver pronto
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // Previne zoom no mobile
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+
+        // Ajusta altura em dispositivos móveis (considerando barras de navegação)
+        function adjustHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        window.addEventListener('resize', adjustHeight);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(adjustHeight, 100);
+        });
+        adjustHeight();
     </script>
 </body>
 </html>
